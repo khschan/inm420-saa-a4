@@ -29,7 +29,7 @@ async function searchWord() {
 
     // Handle suggestion-only responses
     if (!Array.isArray(data) || typeof data[0] === "string") {
-      showResult("Not found", "Try a different word 🤔");
+      showResult("hmm...", "are you sure that's a word? 🤔");
       return;
     }
 
@@ -41,12 +41,12 @@ async function searchWord() {
       : [];
 
     const shortdefHTML = shortdefs.length
-      ? `<strong>Definition</strong>
+      ? `<strong>definition 📖</strong>
          <ul>${shortdefs
            .slice(0, 3)
            .map(def => `<li>${def}</li>`)
            .join("")}</ul>`
-      : "<strong>Definition</strong><p>None available.</p>";
+      : "<strong>definition 📖</strong><p>let me get back to you on that one.</p>";
 
     // ---- ETYMOLOGY ----
     let etymology = "";
@@ -60,13 +60,13 @@ async function searchWord() {
     }
 
     const etHTML = etymology
-      ? `<strong>Etymology</strong><p>${etymology}</p>`
-      : "<strong>Etymology</strong><p>Not available.</p>";
+      ? `<strong>etymology 🏛️</strong><p>${etymology}</p>`
+      : "<strong>etymology 🏛️</strong><p>let me get back to you on that one.</p>";
 
-    showResult(word, `${shortdefHTML}${etHTML}`);
+    showResult(`${word} (dictionary)`, `${shortdefHTML}${etHTML}`);
 
   } catch (err) {
-    showResult("Error", "Something went wrong 😬");
+    showResult("hmm...", "are you sure that's a word? 🤔");
   }
 }
 
@@ -85,7 +85,7 @@ async function searchThesaurus() {
 
     // Handle suggestion-only responses
     if (!Array.isArray(data) || typeof data[0] === "string") {
-      showResult("Not found", "No thesaurus entry available 🤔");
+      showResult("there aren't any 😔", "your word is pretty unique...");
       return;
     }
 
@@ -97,26 +97,26 @@ async function searchThesaurus() {
       : [];
 
     const shortdefHTML = shortdefs.length
-      ? `<strong>Meaning</strong>
+      ? `<strong>meaning ❓</strong>
          <ul>${shortdefs
            .slice(0, 2)
            .map(def => `<li>${def}</li>`)
            .join("")}</ul>`
-      : "<strong>Meaning</strong><p>None available.</p>";
+      : "<strong>meaning ❓</strong><p>None available.</p>";
 
     // ---- SYNONYMS ----
     const synGroups = entry.meta?.syns || [];
     const synonyms = synGroups.flat().slice(0, 8);
 
     const synHTML = synonyms.length
-      ? `<strong>Synonyms</strong>
+      ? `<strong>synonyms 📃</strong>
          <p>${synonyms.join(", ")}</p>`
-      : "<strong>Synonyms</strong><p>None found.</p>";
+      : "<strong>synonyms 📃</strong><p>None found.</p>";
 
     showResult(`${word} (thesaurus)`, `${shortdefHTML}${synHTML}`);
 
   } catch (err) {
-    showResult("Error", "Couldn’t fetch thesaurus data 😬");
+    showResult("sorry...", "i don't know that one 😔");
   }
 }
 
