@@ -1,0 +1,35 @@
+/* GENERAL */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+$enable-grid-classes: false;
+$enable-cssgrid: true;
+$enable-shadows: true;
+
+/* COLOUR VARIABLES */
+$primary-color: #6f42c1;
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  color: $primary-color;
+}
+
+#result {
+  border-left: 6px solid $primary-color;
+  background-color: #fff;
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: all 0.4s ease;
+
+  h4 {
+    text-transform: capitalize;
+    color: $primary-color;
+  }
+
+  &.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
