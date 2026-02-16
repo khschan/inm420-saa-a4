@@ -1,9 +1,10 @@
-// link html objects
+// define html objects
 const resultCard = document.getElementById("result");
 const wordTitle = document.getElementById("wordTitle");
 const definitionText = document.getElementById("definition");
 
 const MW_API_KEY = "ae3ce711-ecc8-4c92-b299-42353a5ff951";
+const MW_THESAURUS_KEY = "1e964eda-2f1d-4ccb-bfe0-ba8ab73b5e5b";
 
 // load card after search
 function showResult(title, htmlContent) {
@@ -27,7 +28,7 @@ async function searchWord() {
 
     const data = await res.json();
 
-    // Handle suggestion-only responses
+    // handle suggestion-only responses
     if (!Array.isArray(data) || typeof data[0] === "string") {
       showResult("hmm...", "are you sure that's a word? 🤔");
       return;
@@ -35,7 +36,7 @@ async function searchWord() {
 
     const entry = data[0];
 
-    // ---- SHORT DEFINITIONS ----
+    // display short definition
     const shortdefs = Array.isArray(entry.shortdef)
       ? entry.shortdef
       : [];
@@ -48,7 +49,7 @@ async function searchWord() {
            .join("")}</ul>`
       : "<strong>definition 📖</strong><p>let me get back to you on that one.</p>";
 
-    // ---- ETYMOLOGY ----
+    // display etymology
     let etymology = "";
 
     if (Array.isArray(entry.et)) {
@@ -70,8 +71,7 @@ async function searchWord() {
   }
 }
 
-const MW_THESAURUS_KEY = "1e964eda-2f1d-4ccb-bfe0-ba8ab73b5e5b";
-
+// THESAURUS FUNCTIONALITY
 async function searchThesaurus() {
   const word = document.getElementById("wordInput").value.trim();
   if (!word) return;
@@ -83,7 +83,7 @@ async function searchThesaurus() {
 
     const data = await res.json();
 
-    // Handle suggestion-only responses
+    // handle suggestion-only responses
     if (!Array.isArray(data) || typeof data[0] === "string") {
       showResult("there aren't any 😔", "your word is pretty unique...");
       return;
@@ -91,7 +91,7 @@ async function searchThesaurus() {
 
     const entry = data[0];
 
-    // ---- SHORT DEFINITIONS ----
+    // display short definition
     const shortdefs = Array.isArray(entry.shortdef)
       ? entry.shortdef
       : [];
@@ -104,7 +104,7 @@ async function searchThesaurus() {
            .join("")}</ul>`
       : "<strong>meaning ❓</strong><p>None available.</p>";
 
-    // ---- SYNONYMS ----
+    // display synonyms
     const synGroups = entry.meta?.syns || [];
     const synonyms = synGroups.flat().slice(0, 8);
 
@@ -120,7 +120,7 @@ async function searchThesaurus() {
   }
 }
 
-// Clear everything
+// clear all results
 function clearResult() {
   document.getElementById("wordInput").value = "";
   resultCard.classList.remove("show");

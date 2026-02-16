@@ -1,5 +1,15 @@
 /* GENERAL */
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+$enable-grid-classes: false;
+$enable-cssgrid: true;
+$enable-shadows: true;
+$enable-transitions: true;
+
+// COLOUR VARIABLES
+$primary-color: #0abb77;
+
+// GENERAL
 body {
   font-family: "Inter", sans-serif;
   border: #ffe3a5 dashed 3px;
@@ -10,6 +20,7 @@ button {
   height: 55px;
 }
 
+// FORMAT TITLE AND IMAGE
 #hero > h1 {
   padding-top: 25px;
 }
@@ -19,37 +30,40 @@ button {
   height: auto;
 }
 
+// FORM INPUT
 #wordInput {
   height: 55px;
   font-size: larger;
 }
 
+// RESULTS CARD
 #result {
   background-color: #fff;
   opacity: 0;
   transform: translateY(400px) scale(0.95);
   transition: all 0.4s ease;
-}
-#result .card {
-  border-radius: 16px;
-  animation: slideIn 500ms forwards;
-}
-@keyframes slideIn {
-  0% {
-    transform: translateY(400px);
+
+  .card {
+    border-radius: 16px;
+    animation: slideIn 500ms forwards;
   }
-  100% {
-    transform: translateY(-400px);
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(400px);
+    }
+
+    100% {
+      transform: translateY(-400px);
+    }
   }
-}
-#result.show {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+  &.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 #wordTitle {
-  color: #0abb77;
+  color: $primary-color;
   font-weight: 700;
 }
-
-/*# sourceMappingURL=stylesheet.css.map */
